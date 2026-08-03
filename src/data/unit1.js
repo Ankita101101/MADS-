@@ -1,4 +1,240 @@
-export const unit1Cards = [
+const androidIntroductionSubtopics = [
+  { heading: "Introduction to Android and Android Applications", notes: `
+Lecture Notes | Mobile Application Development | Introductory Session
+` },
+  { heading: "Learning Objectives", notes: `
+By the end of this lecture, you should be able to:
+1. Explain what Android is and where it is used.
+2. Describe the layered architecture of the Android OS.
+3. Identify the four core building blocks of an Android app.
+4. Explain the purpose of the Android Manifest file.
+5. Understand a typical Android Studio project structure.
+6. Describe the Activity lifecycle and why it matters.
+7. Identify basic UI components and layout types.
+8. Understand the tools used to build and ship an Android app.
+` },
+  { heading: "What is Android?", notes: `
+Android is a mobile operating system developed by Google, built on top of a modified Linux kernel. It was designed primarily for touchscreen devices and has since expanded across many device categories.
+
+Key Characteristics:
+• Open-source: core released as the Android Open Source Project (AOSP).
+• Linux-based: relies on the Linux kernel for core system services.
+• Developed by Google, with the Open Handset Alliance.
+
+A Brief History: Android versions were historically named after desserts — Cupcake, Donut, Eclair … up to Pie — before Google moved to numbered releases (Android 10 onward). Android has become the world's most widely installed operating system, spanning phones, tablets, and far beyond.
+` },
+  { heading: "Where Android Runs", notes: `
+Android has expanded far beyond the smartphone.
+• Phones & Tablets — The original and most common form factor.
+• Android TV — Smart TVs and streaming devices.
+• Wear OS — Smartwatches and wearables.
+• Android Auto — In-vehicle infotainment systems.
+• IoT / Embedded — Connected and embedded devices.
+` },
+  { heading: "Android Architecture", notes: `
+A layered stack — each layer relies on the one below it.
+• System Apps — Pre-installed apps (Phone, Contacts, Settings) and user-installed apps.
+• Java API Framework — Building blocks developers use directly — Activity Manager, View System, and more.
+• Android Runtime (ART) & Native Libraries — Executes app bytecode (AOT/JIT); native C/C++ libraries such as SQLite and WebKit.
+• Hardware Abstraction Layer — Standard interfaces exposing device hardware to the framework above.
+• Linux Kernel — Core services: process and memory management, drivers, power management, and security.
+` },
+  { heading: "Core Building Blocks of an App", notes: `
+Every Android app is composed of one or more of these four components.
+• Activity — A single screen with a user interface, such as an inbox screen.
+• Service — Runs in the background without a UI, such as playing music.
+• Broadcast Receiver — Responds to system-wide events, such as “battery low”.
+• Content Provider — Manages and shares structured app data, such as contacts.
+` },
+  { heading: "The Android Manifest File", notes: `
+Every project includes an AndroidManifest.xml at its root — the app's identity card, read by the build tools, the OS, and Google Play before the app ever runs.
+1. The app's unique package name.
+2. All Activities, Services, Broadcast Receivers, and Content Providers.
+3. Permissions the app requires, such as camera, internet, and location.
+4. Required hardware and software features.
+5. Minimum and target API (SDK) levels.
+6. App icon, label, and theme.
+` },
+  { heading: "Android Studio Project Structure", notes: `
+The official IDE is built on IntelliJ IDEA.
+
+manifests/ — Contains AndroidManifest.xml.
+java/ (or kotlin/) — Source code: Activities, Services, and other classes.
+res/layout/ — XML files defining screen layouts.
+res/values/ — Strings, colors, dimensions, and styles.
+res/drawable/ — Images and drawable resources.
+build.gradle — Build configuration: dependencies, SDK versions, and build settings.
+
+Apps can be written in Java or Kotlin. Kotlin is now Google's preferred language, though Java remains common in legacy codebases.
+` },
+  { heading: "The Activity Lifecycle", notes: `
+How a screen behaves as users navigate through the app.
+1. onCreate() — Activity is first created; initial setup, such as inflating the layout.
+2. onStart() — Activity becomes visible to the user.
+3. onResume() — Activity gains focus and starts interacting with the user.
+4. onPause() — The system is about to resume another Activity; commit unsaved changes.
+5. onStop() — Activity is no longer visible.
+6. onDestroy() — Activity is destroyed by the system or user action.
+
+Why it matters: Android can destroy and recreate an Activity, for example on screen rotation. Apps must save and restore state correctly to avoid data loss or crashes.
+` },
+  { heading: "UI Basics: Layouts", notes: `
+Layouts define how UI elements (views) are arranged on the screen.
+• LinearLayout — Arranges children in a single row or column.
+• RelativeLayout — Positions children relative to each other or the parent.
+• ConstraintLayout — Flexible, constraint-based layout; recommended for most new UIs.
+
+Common Views / Widgets:
+• TextView — Displays text.
+• Button — A clickable action trigger.
+• EditText — An input field for text.
+• ImageView — Displays an image or icon.
+
+Modern apps increasingly use Jetpack Compose — a Kotlin-based declarative UI toolkit — alongside or instead of XML layouts.
+` },
+  { heading: "Development Tools & Packaging", notes: `
+• Android Studio — The official IDE, built on IntelliJ IDEA, for code editing, debugging, and UI design.
+• Android SDK — Libraries and tools needed to build, test, and debug apps.
+• Gradle — Build automation that compiles code, manages dependencies, and packages the app.
+• Emulator / Device — Test on a virtual device in Android Studio or a real phone via USB.
+
+Packaging & Distribution:
+• APK (Android Package) — The traditional install/distribution format.
+• AAB (Android App Bundle) — The modern format required by Google Play; the Play Store builds optimized APKs per device.
+• Apps are typically distributed via the Google Play Store, though direct installs (sideloading) are also possible.
+` },
+  { heading: "Permissions", notes: `
+Certain app capabilities, such as accessing the camera, contacts, or location, require explicit user permission.
+
+Since Android 6.0 (API level 23), many permissions are requested at runtime rather than only at install time, giving users more granular control over their privacy.
+` },
+  { heading: "Key Takeaways", notes: `
+✓ Android is a Linux-based, open-source OS used across many device categories.
+✓ Architecture is layered: Kernel → HAL → Runtime/Native Libraries → Java API Framework → System Apps.
+✓ Every app is built from four components: Activities, Services, Broadcast Receivers, and Content Providers.
+✓ The Manifest declares what an app contains and what it needs to run.
+✓ The Activity lifecycle governs how screens behave as users navigate the app.
+✓ UI is built with layouts and views via XML or the newer Jetpack Compose.
+✓ Android Studio, the SDK, and Gradle form the core development toolchain.
+` },
+  { heading: "Suggested Next Steps", notes: `
+1. Install Android Studio and create a first “Hello World” project.
+2. Explore the generated project — find the Manifest, layouts, and MainActivity.
+3. Run the app on an emulator and observe the lifecycle by rotating the device.
+` },
+];
+
+const softwareDesignSubtopics = [
+  { heading: "Software Design", notes: `
+Explore the crucial phase of software design, transforming requirements into a detailed blueprint for development. We'll cover the process, key characteristics, and essential tools like Design Structure Charts.
+` },
+  { heading: "The Essence of Software Design", notes: `
+Input & Output: Software design translates the Software Requirements Specification (SRS) into a Software Design Document (SDD), detailing the "how" a problem will be solved.
+
+Creative Problem-Solving: This phase is highly creative, focusing on devising innovative solutions and defining the architecture, components, interfaces, and data for a system.
+
+A well-crafted SDD ensures all requirements from the SRS are addressed and provides a complete picture of the system's data, functional, and behavioral aspects.
+` },
+  { heading: "Characteristics of a Good SDD", notes: `
+• Completeness: Must encompass all requirements from the SRS, leaving no ambiguity regarding system functionality and constraints.
+• Readability & Maintainability: Easy to understand for all stakeholders, simplifying future updates, bug fixes, and system enhancements.
+• Holistic View: Describes the entire system, covering data flows, functional components, and behavioral interactions comprehensively.
+` },
+  { heading: "The 3-Step Design Process", notes: `
+Software design progresses through distinct phases, each with a unique focus.
+
+• Interface Design: Views the system as a "black box," defining interactions with its environment. Focuses on inputs and outputs as per user requirements and the SRS.
+• Architectural Design: Identifies major modules, their responsibilities, and communication mechanisms. Emphasizes coupling and cohesion between modules, treating them as black boxes.
+• Detailed Design: Defines the internal elements of each module: functions, processing methods, data structures, and algorithms. This is the lowest-level design phase.
+` },
+  { heading: "Embracing Modularity", notes: `
+A modular architecture breaks down a system into independent, conceptually simple units that interact through well-defined interfaces.
+
+• Easy to understand and explain
+• Simple to design and document
+• Streamlines coding and testing
+• Enhances maintainability
+` },
+  { heading: "Visualizing Design with Structure Charts", notes: `
+Structure Charts visually represent the hierarchical organization of software modules, breaking down complex systems into their lowest functional components.
+
+• Data Flow: Indicated by directed arrows with an empty circle, showing the movement of data between modules.
+• Control Flow: Represented by directed arrows with a filled circle, illustrating the flow of control between modules.
+• Physical Storage: Depicts locations where information is stored, crucial for data management within the system.
+(Diagram shows a sample hierarchical structure chart with placeholder module labels.)
+` },
+  { heading: "Benefits of Design Structure Charts", notes: `
+• Improved System Understanding: Provides a clear overview of the software architecture, making complex systems easier to grasp.
+• Simplified Communication: Fosters better collaboration and reduces misunderstandings among team members.
+• Early Issue Identification: Helps pinpoint potential problems and dependencies before coding commences, saving time and resources.
+• Supports Maintainable Design: Promotes modular and well-structured software, simplifying future maintenance and enhancements.
+` },
+  { heading: "Software Design Principles", notes: `
+A Guide for Junior Developers
+` },
+  { heading: "Agenda", notes: `
+• Pseudocode Essentials: Understanding the blueprint before building the house.
+• Coupling & Cohesion: Key metrics for modularity and maintainable code.
+• Design Approaches: Exploring Top-Down and Bottom-Up strategies.
+• Estimation Models: Predicting project time and cost accurately.
+` },
+  { heading: "Pseudocode: The Algorithm's Blueprint", notes: `
+Pseudocode is an informal, high-level description of an algorithm or program. It blends natural language with programming constructs, focusing on logic rather than syntax. This clarity helps developers:
+• Plan and outline algorithms effectively.
+• Facilitate discussions and reviews among teams.
+• Bridge the gap between human thought and formal code.
+` },
+  { heading: "Coupling & Cohesion: Pillars of Modularity", notes: `
+These two parameters are crucial for evaluating the quality of modularity in software design, directly impacting maintainability and scalability.
+
+• Coupling: Measures the degree of interdependence between software modules. Lower coupling is generally preferred, indicating less reliance on other modules.
+• Cohesion: Indicates the functional strength within a single module. High cohesion means a module's elements work together to achieve a single, well-defined purpose.
+` },
+  { heading: "Understanding Coupling Types", notes: `
+Coupling measures how interconnected modules are. Lower coupling generally indicates a more robust and flexible design.
+
+1. Data Coupling (best) — Modules share data through parameters.
+2. Stamp Coupling — Modules share composite data structures.
+3. Control Coupling — One module passes control information to another.
+4. External Coupling — Modules depend on external entities (e.g., hardware).
+5. Common Coupling — Modules share a global data area.
+6. Content Coupling (worst) — One module modifies another's internal data.
+` },
+  { heading: "Exploring Cohesion Types", notes: `
+Cohesion defines how functionally unified a module is. Higher cohesion implies better design and easier maintenance.
+
+1. Functional Cohesion (high) — All elements contribute to a single, well-defined task.
+2. Sequential Cohesion — Output of one element is input to the next.
+3. Communicational Cohesion — Elements operate on the same input/output data.
+4. Procedural Cohesion — Elements are grouped based on execution order.
+5. Temporal Cohesion — Elements are related by time (e.g., initialization).
+6. Logical Cohesion — Elements perform similar functions, selected by flag.
+7. Coincidental Cohesion (low) — Elements have no meaningful relationship.
+` },
+  { heading: "Design Approaches", notes: `
+Top-Down Approach
+• Concept: Decompose a large problem into smaller, manageable sub-problems, repeating until easily solvable units are achieved.
+• Advantages: Systematic, modular architecture, easier to understand, aligns with user requirements, predictable cost/time.
+• Best For: Small to medium-sized projects.
+• Disadvantage: Difficult for very complex, large problems where the whole cannot be grasped initially.
+
+Bottom-Up Approach
+• Concept: Solve individual sub-problems first, then integrate them to build the complete solution incrementally.
+• Advantages: Suitable for large, complex projects, incremental development ease for designers.
+• Best For: Large-scale projects with evolving requirements.
+• Disadvantage: Can lead to complex, harder-to-manage architecture due to iterative integration.
+` },
+  { heading: "Estimation Models", notes: `
+Accurate estimation of time and cost is critical for successful project delivery.
+
+• Post Estimation: Refining estimates based on actual project data and lessons learned from past projects.
+• Base Estimation: Initial high-level estimates derived from preliminary project scope and requirements.
+• Decomposition: Breaking down complex tasks into smaller, more manageable components for individual estimation.
+• Empirical Models: Utilizing historical data and mathematical formulas (e.g., COCOMO) to predict effort and duration.
+` },
+];
+
+const allUnit1Cards = [
   {
     id: 1,
 
@@ -780,1763 +1016,31 @@ This is extremely useful because it allows you to write code that works generica
 },
 {
   id: 6,
-
   title: "6. Introduction to Software Engineering and SDLC",
-
-  short:
-    "Software engineering principles and SDLC overview.",
-
-  subtopics: [
-
-    {
-      heading: "Overview of Chain of Custody",
-
-      notes: `
-The chain of custody (CoC) is the chronological and documented record of:
-
-• seizure
-• control
-• transfer
-• analysis
-• disposition
-
-of physical and digital evidence.
-
-It establishes that the evidence presented in court is:
-• authentic
-• unaltered
-• uncontaminated
-• continuously accounted for
-
-In drone forensics, chain of custody is especially complex because investigations may involve:
-• multiple drone components
-• onboard memory
-• cloud evidence
-• mobile devices
-• cross-jurisdiction investigations
-
-A broken chain of custody creates a legal presumption that evidence could have been compromised.
-`,
-    },
-
-    {
-      heading: "Core Principles of Chain of Custody",
-
-      notes: `
-Integrity:
-Evidence must remain in the same condition from collection to court presentation.
-
-Continuity:
-There must be an unbroken record of possession and handling.
-
-Accountability:
-Every individual handling evidence becomes responsible for its condition during custody.
-
-Authenticity:
-Evidence must be provably genuine through:
-• exhibit numbers
-• tamper seals
-• cryptographic hashes
-• photographs
-
-Admissibility:
-Courts require chain of custody documentation before evidence can be accepted legally.
-`,
-    },
-
-    {
-      heading: "Evidence Identification and Labelling",
-
-      notes: `
-Every evidence item must receive a unique identifier immediately upon collection.
-
-Label information includes:
-
-• exhibit number
-• item description
-• manufacturer and model
-• serial number
-• recovery location
-• GPS coordinates
-• collection date and time
-• examiner identity
-• case reference number
-
-Labels must:
-• use permanent ink
-• remain moisture resistant
-• be attached to evidence packaging
-• avoid direct marking on evidence itself
-`,
-    },
-
-    {
-      heading: "Barcode and RFID Tracking",
-
-      notes: `
-Modern evidence systems use:
-
-• barcodes
-• RFID tags
-• digital scanning systems
-
-These technologies provide:
-• automated evidence tracking
-• reduced transcription errors
-• real-time custody logging
-• digital audit trails
-`,
-    },
-
-    {
-      heading: "Chain of Custody Documentation",
-
-      notes: `
-The chain of custody form is the primary legal record accompanying the evidence.
-
-Standard form sections include:
-
-• case information
-• exhibit number
-• collection details
-• seal numbers
-• transfer records
-• examination logs
-• disposition records
-
-Every entry must be:
-• contemporaneous
-• signed
-• indelible
-• properly timestamped
-`,
-    },
-
-    {
-      heading: "Evidence Ownership and Custodianship",
-
-      notes: `
-At every moment, one person or institution is legally responsible for the evidence.
-
-Primary Custodian:
-Usually the first officer or forensic examiner who recovered the evidence.
-
-Institutional Custody:
-When evidence enters a laboratory, legal custody transfers to the institution.
-
-Multiple Custodians:
-If evidence is split across agencies, each item requires its own independent chain of custody documentation.
-`,
-    },
-
-    {
-      heading: "Timestamps and Temporal Integrity",
-
-      notes: `
-Timestamps form the chronological backbone of forensic investigations.
-
-Every event must be timestamped including:
-
-• collection
-• transfer
-• imaging
-• examination
-• reporting
-
-UTC (Coordinated Universal Time) should be used to avoid timezone ambiguity.
-
-Investigators must compare:
-• workstation clocks
-• drone clocks
-• mobile device clocks
-• cloud timestamps
-
-Clock offsets must be documented and adjusted during analysis.
-`,
-    },
-
-    {
-      heading: "Timeline Reconstruction",
-
-      notes: `
-Timestamp correlation helps investigators reconstruct:
-
-• drone power events
-• flight activity
-• media recording
-• file deletion
-• seizure timelines
-• examiner handling events
-
-Master timelines are critical for:
-• forensic reconstruction
-• event sequencing
-• courtroom presentation
-`,
-    },
-
-    {
-      heading: "Digital Chain of Custody",
-
-      notes: `
-Digital chain of custody ensures electronic evidence remains:
-• authentic
-• unmodified
-• verifiable
-
-This is achieved through:
-• forensic imaging
-• cryptographic hashing
-• read-only analysis
-• documented verification procedures
-
-SHA-256 hashing is the industry standard for digital evidence verification.
-`,
-    },
-
-    {
-      heading: "Cryptographic Hashing",
-
-      notes: `
-A cryptographic hash acts as a mathematical fingerprint for digital evidence.
-
-Any change to the data produces a completely different hash value.
-
-Hashes are recorded in:
-• acquisition logs
-• chain of custody forms
-• forensic reports
-• image metadata
-
-Common algorithms include:
-• MD5
-• SHA-1
-• SHA-256
-`,
-    },
-
-    {
-      heading: "Hash Verification Events",
-
-      notes: `
-Hashes must be verified during:
-
-• forensic acquisition
-• working copy creation
-• evidence transfer
-• tool loading
-• courtroom presentation
-
-Every verification event must include:
-• timestamp
-• examiner identity
-• verification result
-`,
-    },
-
-    {
-      heading: "Digital Evidence Management Systems",
-
-      notes: `
-Modern investigations use Digital Evidence Management Systems (DEMS).
-
-Examples include:
-• Magnet REVIEW
-• Magnet AUTOMATE
-• Forensic Explorer
-• CJIS-compliant platforms
-
-These systems manage:
-• evidence tracking
-• access logs
-• audit records
-• hash verification
-• secure storage
-`,
-    },
-
-    {
-      heading: "Metadata Preservation",
-
-      notes: `
-Digital metadata must remain preserved in its original state.
-
-Important metadata includes:
-• file timestamps
-• EXIF metadata
-• GPS records
-• database timestamps
-• telemetry records
-
-Evidence files must always be opened in:
-• read-only mode
-`,
-    },
-
-    {
-      heading: "Handling Records and Examination Logs",
-
-      notes: `
-Every examination session must be documented.
-
-Logs include:
-• examiner identity
-• workstation details
-• tools used
-• software versions
-• methodology
-• findings
-• anomalies
-• timestamps
-
-The methodology must be reproducible by another competent examiner.
-`,
-    },
-
-    {
-      heading: "Transfer Procedures",
-
-      notes: `
-Evidence transfers represent high-risk custody events.
-
-Transfer documentation includes:
-• transfer timestamps
-• sender details
-• receiver details
-• reason for transfer
-• seal integrity status
-
-Transfer types include:
-• in-person transfer
-• courier transfer
-• international transfer
-• electronic forensic image transfer
-`,
-    },
-
-    {
-      heading: "International and Electronic Transfers",
-
-      notes: `
-Cross-border evidence transfers may require:
-• MLAT procedures
-• legal authorisation
-• inter-agency coordination
-
-Electronic transfers require:
-• encrypted transmission
-• hash verification
-• secure protocols
-• documented timestamps
-`,
-    },
-
-    {
-      heading: "Tamper-Evident Packaging",
-
-      notes: `
-Tamper-evident packaging provides visible proof of evidence integrity.
-
-Examples include:
-• evidence bags
-• tamper tape
-• security seals
-• serialized labels
-
-Seal numbers must match documentation records exactly.
-`,
-    },
-
-    {
-      heading: "Seal Integrity Checks",
-
-      notes: `
-Every receiving custodian must inspect:
-• seal condition
-• seal numbers
-• packaging integrity
-
-Any anomaly must be:
-• documented
-• reported
-• investigated immediately
-`,
-    },
-
-    {
-      heading: "Legal Accountability and Court Proceedings",
-
-      notes: `
-Chain of custody is regularly challenged during court proceedings.
-
-Common defence challenges include:
-• custody gaps
-• unsigned transfers
-• seal anomalies
-• timestamp discrepancies
-• tool validation issues
-
-Investigators must demonstrate:
-• procedural compliance
-• evidence integrity
-• reliable forensic methodology
-`,
-    },
-
-    {
-      heading: "Expert Witness Responsibilities",
-
-      notes: `
-Forensic examiners presenting evidence in court must:
-
-• disclose all findings
-• acknowledge limitations
-• distinguish facts from opinions
-• explain methodology clearly
-• defend forensic procedures scientifically
-
-Professional certifications may include:
-• EnCE
-• GCFE
-• CCFP
-`,
-    },
-
-    {
-      heading: "Retention and Disposition",
-
-      notes: `
-Drone evidence retention depends on:
-• court proceedings
-• appeals
-• agency policy
-• legal regulations
-
-Possible outcomes include:
-• long-term retention
-• return to owner
-• lawful destruction
-• inter-agency transfer
-
-Disposal actions must be documented with:
-• destruction certificates
-• witness signatures
-• return receipts
-`,
-    },
-
-    {
-      heading: "Drone Evidence Preservation Flowchart",
-
-      notes: `
-                 DRONE INCIDENT / RECOVERY
-                               ⬇
-
-                    SCENE SECURING
-             (Restrict access, ensure safety)
-
-                               ⬇
-
-                  INITIAL DOCUMENTATION
-      (Photographs, videos, GPS location, notes)
-
-                               ⬇
-
-                 EVIDENCE IDENTIFICATION
-   (Drone, battery, SD card, controller, mobile device)
-
-                               ⬇
-
-                    EVIDENCE LABELING
-        (Unique ID, date, time, case number)
-
-                               ⬇
-
-                    EVIDENCE PACKAGING
-(Anti-static bags, Faraday bags, fire-safe battery storage)
-
-                               ⬇
-
-           CHAIN OF CUSTODY FORM INITIATION
-      (Collector name, signature, condition)
-
-                               ⬇
-
-                    EVIDENCE TRANSPORT
-                 (Secure and sealed transfer)
-
-                               ⬇
-
-                     EVIDENCE STORAGE
-            (Access-controlled evidence locker)
-
-                               ⬇
-
-                   FORENSIC EXAMINATION
-             (Logged access, purpose recorded)
-
-                               ⬇
-
-                DIGITAL EVIDENCE IMAGING
-            (Write blockers, hash generation)
-
-                               ⬇
-
-              CoC UPDATE AFTER EACH HANDLING
-         (Date, time, handler, reason)
-
-                               ⬇
-
-                   ANALYSIS & REPORTING
-        (Findings documented, integrity verified)
-
-                               ⬇
-
-                    COURT PRESENTATION
-         (CoC records submitted with evidence)
-
-                               ⬇
-
-              EVIDENCE RETENTION / DISPOSAL
-                 (As per legal guidelines)
-`,
-    },
-
-  ],
+  short: "Software engineering principles and SDLC overview.",
 },
 {
   id: 7,
-
-  title: "7. Software Development Models (Waterfall, Agile, Spiral)",
-
-  short:
-    "Advantages, disadvantages and applications of SDLC models.",
-  subtopics: [
-
-    {
-      heading: "Overview of Anti-Forensics",
-
-      notes: `
-Anti-forensics refers to any technique, tool, or method used to:
-• prevent
-• hinder
-• delay
-• invalidate
-
-a forensic investigation.
-
-In drone investigations, anti-forensic techniques are used to:
-• hide operator identity
-• destroy evidence
-• manipulate logs
-• evade attribution
-• obstruct legal proceedings
-
-Anti-forensics in drone investigations generally falls into six categories:
-
-• Data destruction
-• Data concealment
-• Data falsification
-• Identity obfuscation
-• Hardware modification
-• Operational security practices
-
-Understanding these techniques is essential for investigators to:
-• detect concealment attempts
-• recover hidden evidence
-• prove consciousness of guilt
-`,
-    },
-
-    {
-      heading: "Data Destruction",
-
-      notes: `
-Data destruction involves permanently removing forensic evidence before investigators can access it.
-
-Common techniques include:
-• SD card formatting
-• secure erase operations
-• flight log deletion
-• physical destruction of components
-• battery destruction
-
-Quick formatting removes only filesystem references while leaving underlying data recoverable through carving.
-
-Full formatting overwrites storage clusters using:
-• zero filling
-• pseudorandom patterns
-
-Recovery success depends on:
-• overwrite completion
-• NAND wear levelling
-• garbage collection timing
-`,
-    },
-
-    {
-      heading: "SD Card Formatting and Recovery",
-
-      notes: `
-Quick format erases:
-• FAT tables
-• directory entries
-
-but often leaves data physically present.
-
-Investigators recover data using:
-• PhotoRec
-• Autopsy
-• Magnet AXIOM
-
-These tools identify files through binary signatures such as:
-
-JPEG:
-FF D8 FF
-
-MP4:
-66 74 79 70
-
-Forensic indicators of formatting include:
-• zero-filled sectors
-• reset volume serial numbers
-• recent filesystem timestamps
-`,
-    },
-
-    {
-      heading: "Secure Erase and Physical Destruction",
-
-      notes: `
-Secure erase tools overwrite storage repeatedly using pseudorandom data.
-
-Examples include:
-• DBAN
-• Eraser
-• firmware secure erase commands
-
-Physical destruction methods include:
-• crushing
-• burning
-• water immersion
-• cutting storage devices
-
-Investigators may still recover evidence using:
-• chip-off acquisition
-• clean-room recovery
-• NAND reconstruction
-• SEM analysis
-`,
-    },
-
-    {
-      heading: "Flight Controller Log Deletion",
-
-      notes: `
-Advanced operators may delete internal DJI DAT logs through:
-• DJI Assistant 2 developer mode
-• modified firmware
-• NAND garbage collection manipulation
-
-Deleted logs may remain recoverable because NAND pages are:
-• marked invalid
-• not immediately erased
-
-Chip-off acquisition combined with:
-• ECC reconstruction
-• page-level analysis
-
-may recover deleted flight records.
-`,
-    },
-
-    {
-      heading: "Data Concealment",
-
-      notes: `
-Instead of destroying evidence, operators may hide it.
-
-Concealment techniques include:
-• encryption
-• hidden partitions
-• steganography
-• metadata stripping
-• disguised files
-
-These methods attempt to:
-• delay forensic discovery
-• hide operational records
-• conceal attribution evidence
-`,
-    },
-
-    {
-      heading: "Encryption of Drone Storage",
-
-      notes: `
-Modern drones may encrypt:
-• SD card contents
-• internal logs
-• media storage
-
-DJI enterprise drones use:
-• hardware security modules
-• secure enclaves
-• device-linked encryption
-
-Investigative responses include:
-• logical acquisition while powered on
-• live acquisition
-• JTAG debugging
-• secure element analysis
-
-Open-source platforms:
-• ArduPilot
-• PX4
-• Betaflight
-
-usually store logs in plaintext.
-`,
-    },
-
-    {
-      heading: "Hidden Partitions and File Manipulation",
-
-      notes: `
-Operators may create hidden partitions not visible in normal filesystem listings.
-
-Forensic imaging captures:
-• active partitions
-• hidden sectors
-• unallocated space
-• partition anomalies
-
-Investigators perform:
-• sector-by-sector analysis
-• raw image examination
-• partition table validation
-`,
-    },
-
-    {
-      heading: "Steganography and Metadata Stripping",
-
-      notes: `
-Steganography hides data inside:
-• images
-• videos
-• multimedia files
-
-Detection tools include:
-• StegExpose
-• StegSpy
-• Stegdetect
-
-Metadata stripping removes:
-• EXIF GPS coordinates
-• timestamps
-• camera identifiers
-• serial numbers
-
-Investigators detect stripping through:
-• unallocated space recovery
-• JPEG structure analysis
-• generation-loss examination
-`,
-    },
-
-    {
-      heading: "Data Falsification",
-
-      notes: `
-Some operators attempt to alter evidence rather than destroy it.
-
-Examples include:
-• GPS spoofing
-• Remote ID spoofing
-• clock manipulation
-• log editing
-• firmware modification
-
-The objective is to create:
-• false alibis
-• misleading timelines
-• inaccurate flight paths
-`,
-    },
-
-    {
-      heading: "GPS Spoofing",
-
-      notes: `
-GPS spoofing transmits false GNSS signals causing the drone to record incorrect locations.
-
-Detection methods include:
-• IMU-GPS comparison
-• barometric altitude comparison
-• radar correlation
-• CCTV analysis
-• RF triangulation
-
-Indicators include:
-• abnormal satellite geometry
-• unrealistic signal strength
-• inconsistent movement data
-`,
-    },
-
-    {
-      heading: "Remote ID Spoofing and Clock Manipulation",
-
-      notes: `
-Operators may broadcast false:
-• serial numbers
-• operator IDs
-• location data
-
-Clock manipulation alters:
-• flight timestamps
-• media timestamps
-• operational timelines
-
-Investigators compare:
-• EXIF timestamps
-• cloud timestamps
-• mobile device logs
-• SD card timestamps
-• flight controller logs
-
-to identify inconsistencies.
-`,
-    },
-
-    {
-      heading: "Firmware Modification and Log Editing",
-
-      notes: `
-Modified firmware may:
-• reduce logging
-• falsify telemetry
-• disable geofencing
-• alter Remote ID broadcasts
-
-Investigators analyse:
-• firmware binaries
-• version mismatches
-• CRC failures
-• log structure anomalies
-
-Tools include:
-• Ghidra
-• IDA Pro
-• DatCon
-`,
-    },
-
-    {
-      heading: "Identity Obfuscation",
-
-      notes: `
-Operators may attempt to disconnect themselves from the drone.
-
-Methods include:
-• serial number removal
-• cash purchases
-• stolen drones
-• anonymous SIM cards
-• spoofed registration records
-`,
-    },
-
-    {
-      heading: "Serial Number Removal",
-
-      notes: `
-Serial numbers may be:
-• ground off
-• chemically removed
-• physically altered
-
-Recovery methods include:
-• oblique lighting
-• chemical etching
-• scanning electron microscopy
-
-Subsurface serial impressions may still remain detectable.
-`,
-    },
-
-    {
-      heading: "Anonymous Acquisition and Stolen Drones",
-
-      notes: `
-Operators may:
-• purchase drones anonymously
-• use cryptocurrency
-• buy through private sales
-• operate stolen drones
-
-Investigators analyse:
-• CCTV records
-• activation history
-• cloud sync records
-• marketplace communications
-• manufacturer registration databases
-`,
-    },
-
-    {
-      heading: "Hardware Modification",
-
-      notes: `
-Physical modifications alter the drone's operational and forensic characteristics.
-
-Examples include:
-• RF transmission boosters
-• geofence bypass firmware
-• payload modifications
-• FPV conversion
-• Remote ID disabling
-`,
-    },
-
-    {
-      heading: "RF Boosters and Geofence Bypass",
-
-      notes: `
-High-power RF modules extend operational range beyond legal VLOS limits.
-
-Modified firmware may disable:
-• airport geofencing
-• prison restrictions
-• government exclusion zones
-
-Detection methods include:
-• RF fingerprinting
-• firmware hash comparison
-• spectrum analysis
-`,
-    },
-
-    {
-      heading: "Payload and Remote ID Modifications",
-
-      notes: `
-Custom payload systems may support:
-• smuggling
-• surveillance
-• contraband delivery
-
-Remote ID modules may be:
-• physically disconnected
-• disabled through firmware
-• spoofed electronically
-
-Investigators compare:
-• stock hardware configuration
-• firmware behaviour
-• broadcast records
-`,
-    },
-
-    {
-      heading: "Operational Security (OPSEC) Practices",
-
-      notes: `
-Sophisticated operators reduce forensic exposure through:
-• remote launch sites
-• short flights
-• controller disposal
-• generic components
-• flying without SD cards
-• rapid evidence wiping
-
-These techniques reduce:
-• RF exposure
-• trace evidence
-• digital artifact generation
-`,
-    },
-
-    {
-      heading: "Flying Without SD Cards",
-
-      notes: `
-Some operators intentionally avoid SD cards to eliminate the most accessible evidence source.
-
-However:
-• internal NAND logs
-• flight controller telemetry
-• cloud synchronisation
-
-may still preserve evidence.
-
-A missing SD card is itself:
-• suspicious
-• forensically significant
-`,
-    },
-
-    {
-      heading: "Detecting Anti-Forensic Activity",
-
-      notes: `
-Indicators of anti-forensic activity include:
-
-Storage anomalies:
-• wiped media
-• hidden partitions
-• missing logs
-
-Log anomalies:
-• CRC mismatches
-• inconsistent timestamps
-• missing sequences
-
-Hardware anomalies:
-• altered serial numbers
-• aftermarket RF hardware
-• modified firmware
-
-Metadata anomalies:
-• stripped EXIF
-• inconsistent GPS data
-
-Behavioural anomalies:
-• missing SD cards
-• Faraday pouches
-• disposable SIM cards
-`,
-    },
-
-    {
-      heading: "Legal Significance of Anti-Forensics",
-
-      notes: `
-Anti-forensic behaviour demonstrates:
-• consciousness of guilt
-• intent to conceal evidence
-• deliberate obstruction
-
-Courts may treat:
-• evidence destruction
-• spoofing
-• log falsification
-• firmware tampering
-
-as incriminating conduct.
-
-Investigators must document:
-• missing evidence
-• concealment indicators
-• expected evidence profiles
-• forensic inconsistencies
-`,
-    },
-
-    {
-      heading: "Investigative Framework for Anti-Forensic Cases",
-
-      notes: `
-When anti-forensics is suspected, investigators should:
-
-• expand evidence sources
-• pursue cloud artifacts
-• analyse paired devices
-• correlate third-party evidence
-• use RF triangulation
-• perform NAND analysis
-• document concealment attempts
-
-Specialist resources may include:
-• chip-off laboratories
-• SEM-EDX analysis
-• firmware reverse engineering
-• RF fingerprinting experts
-`,
-    },
-
-    {
-      heading: "Key Principles Summary",
-
-      notes: `
-• Anti-forensics ranges from physical destruction to subtle falsification
-• Missing evidence is itself significant
-• Multi-source corroboration defeats falsification
-• Chip-off NAND recovery is critical against data destruction
-• Anti-forensic activity demonstrates consciousness of guilt
-• Investigators must document concealment attempts as evidence
-`,
-    },
-
-  ],
+  title: "7. Software Design",
+  short: "Software design principles, processes, structure charts, modularity, and estimation models.",
+  subtopics: softwareDesignSubtopics,
 },
 {
   id: 8,
-
   title: "8. Introduction to Android: History, Features, Versions, Android Ecosystem",
-
-  short:
-    "Overview of Android operating system.",
-  subtopics: [
-
-    {
-      heading: "Overview of Cloud Forensics in UAV Systems",
-
-      notes: `
-Cloud forensics in UAV investigations refers to the:
-• identification
-• preservation
-• extraction
-
-of evidence stored on remote servers operated by:
-• drone manufacturers
-• enterprise fleet platforms
-• third-party services
-
-When onboard storage is:
-• wiped
-• encrypted
-• destroyed
-
-cloud records frequently provide an independent evidence trail.
-
-Unlike onboard storage, cloud evidence exists outside the operator's direct control once uploaded, making it resilient against many anti-forensic techniques.
-`,
-    },
-
-    {
-      heading: "Why Cloud Evidence Matters",
-
-      notes: `
-Modern drones such as:
-• DJI
-• Skydio
-• Autel
-• Parrot
-
-automatically synchronize flight records whenever the paired device connects to the internet.
-
-Cloud evidence is important because:
-
-• cloud records survive even if the drone is destroyed
-• timestamps are server-side and resistant to clock manipulation
-• cloud systems may store hidden operational data unknown to the operator
-
-Examples include:
-• device pairing history
-• geofence unlock requests
-• account activity
-• synchronization logs
-`,
-    },
-
-    {
-      heading: "Flight Records Stored in the Cloud",
-
-      notes: `
-Cloud flight records may contain:
-
-• aircraft serial number
-• operator account ID
-• flight start and end time
-• maximum altitude
-• maximum distance
-• total flight duration
-• home point coordinates
-
-Enterprise systems may additionally store:
-• full GPS tracks
-• payload sensor outputs
-• video stream metadata
-`,
-    },
-
-    {
-      heading: "Account and Registration Data",
-
-      notes: `
-Manufacturer accounts may store:
-
-• user names
-• email addresses
-• phone numbers
-• payment methods
-• IP addresses
-• account creation records
-
-This data assists investigators in:
-• attribution
-• ownership identification
-• account correlation
-• geographic tracing
-`,
-    },
-
-    {
-      heading: "Device Activation Records",
-
-      notes: `
-Most drones activate against manufacturer servers during first-time setup.
-
-Activation records may include:
-
-• serial number
-• firmware version
-• activation timestamp
-• associated account
-
-Even if ownership later changes, original activation records remain stored on manufacturer systems.
-`,
-    },
-
-    {
-      heading: "Geofence Unlock Requests",
-
-      notes: `
-Manufacturers like DJI restrict flights near:
-• airports
-• prisons
-• government areas
-
-Operators requesting geofence unlocks submit:
-• account information
-• drone serial numbers
-• flight locations
-
-These records provide strong evidence that the operator intended to fly in restricted airspace.
-`,
-    },
-
-    {
-      heading: "Remote ID Broadcast Logs",
-
-      notes: `
-Under FAA and EASA regulations, drones broadcast:
-
-• serial number
-• location
-• altitude
-• operator position
-
-Third-party Remote ID receivers independently log these broadcasts.
-
-These logs provide:
-• independent evidence
-• timeline validation
-• location verification
-• attribution support
-`,
-    },
-
-    {
-      heading: "Firmware Update History",
-
-      notes: `
-Cloud systems often store firmware update records including:
-
-• previous firmware version
-• update timestamps
-• installed firmware versions
-
-Investigators use this data to:
-• identify downgraded firmware
-• detect unauthorized firmware modifications
-• reconstruct device history
-`,
-    },
-
-    {
-      heading: "DJI Cloud Ecosystem",
-
-      notes: `
-DJI is the most significant cloud evidence source in commercial drone forensics.
-
-Relevant systems include:
-
-• DJI Fly
-• DJI GO 4
-• DJI FlightHub
-• DJI Developer API
-
-These systems may store:
-• flight summaries
-• mission data
-• telemetry
-• pilot identity
-• cloud synchronization records
-`,
-    },
-
-    {
-      heading: "Skydio, Autel, and Parrot Platforms",
-
-      notes: `
-Skydio Fleet stores:
-• mission logs
-• flight paths
-• telemetry
-
-Parrot and Autel systems may store:
-• activation records
-• account history
-• cloud flight summaries
-
-Data availability varies between manufacturers and platform maturity.
-`,
-    },
-
-    {
-      heading: "Third-Party Mission Planning Platforms",
-
-      notes: `
-Platforms such as:
-
-• AirMap
-• Aloft
-• DroneDeploy
-
-store:
-• mission plans
-• LAANC approvals
-• flight authorizations
-• operational records
-
-These records help establish:
-• operator intent
-• pre-flight planning
-• regulatory compliance
-`,
-    },
-
-    {
-      heading: "Legal Acquisition from Manufacturers",
-
-      notes: `
-Cloud evidence is typically acquired through:
-
-• subpoenas
-• search warrants
-• court orders
-• MLAT requests
-
-Investigators should request:
-
-• flight records
-• account information
-• activation history
-• geofence requests
-• telemetry data
-
-Preservation letters should be sent immediately to prevent automatic deletion.
-`,
-    },
-
-    {
-      heading: "Extraction from Paired Mobile Devices",
-
-      notes: `
-Paired smartphones and tablets often contain locally cached cloud data.
-
-Extraction tools include:
-• Cellebrite UFED
-• Magnet AXIOM
-• Oxygen Forensic Detective
-
-Locally cached records may include:
-• SQLite flight databases
-• synchronized telemetry
-• cached map tiles
-• account session tokens
-`,
-    },
-
-    {
-      heading: "App-Level Forensic Extraction",
-
-      notes: `
-Drone applications may contain:
-
-• flight history databases
-• map caches
-• downloaded mission plans
-• authentication tokens
-
-Android extraction may require:
-• root access
-• ADB backup
-
-iOS extraction typically requires:
-• full filesystem extraction
-`,
-    },
-
-    {
-      heading: "Passive Capture and Remote ID Collection",
-
-      notes: `
-Remote ID broadcasts may be captured using:
-
-• Remote ID receivers
-• Software Defined Radio (SDR)
-• RF monitoring systems
-
-Historical records may also be obtained from:
-• airports
-• stadium operators
-• national monitoring systems
-`,
-    },
-
-    {
-      heading: "Retention Periods and Preservation",
-
-      notes: `
-Manufacturers do not retain cloud evidence indefinitely.
-
-Retention periods vary by:
-• account type
-• subscription tier
-• platform policy
-
-Investigators must:
-• issue preservation requests quickly
-• begin acquisition immediately
-• document deletion schedules
-`,
-    },
-
-    {
-      heading: "Server-Side Timestamps",
-
-      notes: `
-Cloud timestamps are highly reliable because they are assigned by:
-• remote servers
-• independent infrastructure
-
-These timestamps are resistant to:
-• clock manipulation
-• local device tampering
-
-UTC should always be used for forensic correlation.
-`,
-    },
-
-    {
-      heading: "Chain of Custody for Cloud Evidence",
-
-      notes: `
-Cloud evidence must be:
-• documented
-• hashed
-• securely stored
-• authenticated
-
-Evidence may be produced as:
-• CSV files
-• JSON exports
-• PDF reports
-
-Manufacturers typically provide:
-• certificates of authenticity
-• production affidavits
-• custodian statements
-`,
-    },
-
-    {
-      heading: "Admissibility of Cloud Records",
-
-      notes: `
-Cloud records are generally treated as:
-• business records
-
-Courts require proof that:
-• records were created routinely
-• records were generated near event time
-• data is authentic
-• production is accurate
-
-Custodian certifications are essential for admissibility.
-`,
-    },
-
-    {
-      heading: "Cross-Border and Jurisdictional Challenges",
-
-      notes: `
-Cloud evidence may be stored across:
-• multiple countries
-• international data centres
-• foreign jurisdictions
-
-DJI data may involve:
-• US servers
-• Chinese servers
-
-Cross-border access may require:
-• MLAT procedures
-• international legal cooperation
-• jurisdictional review
-`,
-    },
-
-    {
-      heading: "Limitations of Cloud Evidence",
-
-      notes: `
-Cloud evidence may be limited by:
-
-• disabled synchronization
-• offline operation
-• account anonymity
-• retention expiration
-• foreign legal barriers
-
-Consumer users may disable:
-• cloud syncing
-• telemetry uploads
-• flight record sharing
-`,
-    },
-
-    {
-      heading: "Integration with Other Evidence Sources",
-
-      notes: `
-Cloud evidence becomes most powerful when correlated with:
-
-• internal flight logs
-• Remote ID broadcasts
-• GPS telemetry
-• mobile device records
-• CCTV footage
-• RF monitoring
-• physical evidence
-
-Cross-validation strengthens:
-• attribution
-• timeline reconstruction
-• operational analysis
-`,
-    },
-
-    {
-      heading: "Key Principles Summary",
-
-      notes: `
-• Preservation requests must be issued immediately
-• Cloud evidence should be pursued alongside physical acquisition
-• Paired mobile devices often contain cloud-equivalent evidence
-• Server-side timestamps are highly reliable
-• Certificates of authenticity are mandatory
-• Cross-border evidence acquisition may be slow
-• Missing cloud records may itself be forensically significant
-`,
-    },
-
-  ],
+  short: "Overview of the Android operating system.",
+  subtopics: androidIntroductionSubtopics,
 },
 {
   id: 9,
-
   title: "9. Android Architecture Overview and Android Application Components",
-
-  short:
-    "Android architecture layers and components.",
-
-  subtopics: [
-
-    {
-      heading: "Drone Investigation Workflow Flowchart",
-
-      notes: `
-                    DRONE INCIDENT / RECOVERY
-                                   ⬇
-                         SCENE SECURING
-                  (Restrict access, ensure safety)
-                                   ⬇
-                     INITIAL DOCUMENTATION
-           (Photographs, videos, GPS location, notes)
-                                   ⬇
-                    EVIDENCE IDENTIFICATION
-      (Drone, battery, SD card, controller, mobile device)
-                                   ⬇
-                        EVIDENCE LABELING
-            (Unique ID, date, time, case number)
-                                   ⬇
-                        EVIDENCE PACKAGING
- (Anti-static bags, Faraday bags, fire-safe battery storage)
-                                   ⬇
-               CHAIN OF CUSTODY FORM INITIATION
-           (Collector name, signature, condition)
-                                   ⬇
-                        EVIDENCE TRANSPORT
-                     (Secure and sealed transfer)
-                                   ⬇
-                         EVIDENCE STORAGE
-                (Access-controlled evidence locker)
-                                   ⬇
-                       FORENSIC EXAMINATION
-                 (Logged access, purpose recorded)
-                                   ⬇
-                    DIGITAL EVIDENCE IMAGING
-                 (Write blockers, hash generation)
-                                   ⬇
-                  CoC UPDATE AFTER EACH HANDLING
-              (Date, time, handler, reason)
-                                   ⬇
-                       ANALYSIS & REPORTING
-            (Findings documented, integrity verified)
-                                   ⬇
-                        COURT PRESENTATION
-             (CoC records submitted with evidence)
-                                   ⬇
-                  EVIDENCE RETENTION / DISPOSAL
-                     (As per legal guidelines)
-`,
-    },
-
-    {
-      heading: "Purpose of the Investigation Workflow",
-
-      notes: `
-The drone forensic workflow provides a structured methodology for:
-
-• evidence preservation
-• forensic acquisition
-• integrity maintenance
-• timeline reconstruction
-• legal admissibility
-
-The workflow ensures that every forensic action remains:
-• documented
-• repeatable
-• scientifically reliable
-`,
-    },
-
-    {
-      heading: "Importance of Workflow Standardization",
-
-      notes: `
-Standardized forensic workflows help investigators:
-
-• reduce evidence contamination
-• maintain chain of custody
-• ensure procedural consistency
-• support courtroom admissibility
-
-Professional workflows are critical in:
-• criminal investigations
-• counter-terrorism operations
-• accident reconstruction
-• cyber-forensic analysis
-`,
-    },
-
-  ],
+  short: "Android architecture layers and application components.",
 },
-
 {
-  id: 9,
-
+  id: 10,
   title: "10. Android Development Environment Overview (Android Studio, SDK, Emulator) + Unit 1 Revision",
-
-  short:
-    "Android Studio, SDK, Emulator and complete revision.",
-
-  subtopics: [
-
-    {
-      heading: "Drone Investigation Workflow Flowchart",
-
-      notes: `
-                    DRONE INCIDENT / RECOVERY
-                                   ⬇
-                         SCENE SECURING
-                  (Restrict access, ensure safety)
-                                   ⬇
-                     INITIAL DOCUMENTATION
-           (Photographs, videos, GPS location, notes)
-                                   ⬇
-                    EVIDENCE IDENTIFICATION
-      (Drone, battery, SD card, controller, mobile device)
-                                   ⬇
-                        EVIDENCE LABELING
-            (Unique ID, date, time, case number)
-                                   ⬇
-                        EVIDENCE PACKAGING
- (Anti-static bags, Faraday bags, fire-safe battery storage)
-                                   ⬇
-               CHAIN OF CUSTODY FORM INITIATION
-           (Collector name, signature, condition)
-                                   ⬇
-                        EVIDENCE TRANSPORT
-                     (Secure and sealed transfer)
-                                   ⬇
-                         EVIDENCE STORAGE
-                (Access-controlled evidence locker)
-                                   ⬇
-                       FORENSIC EXAMINATION
-                 (Logged access, purpose recorded)
-                                   ⬇
-                    DIGITAL EVIDENCE IMAGING
-                 (Write blockers, hash generation)
-                                   ⬇
-                  CoC UPDATE AFTER EACH HANDLING
-              (Date, time, handler, reason)
-                                   ⬇
-                       ANALYSIS & REPORTING
-            (Findings documented, integrity verified)
-                                   ⬇
-                        COURT PRESENTATION
-             (CoC records submitted with evidence)
-                                   ⬇
-                  EVIDENCE RETENTION / DISPOSAL
-                     (As per legal guidelines)
-`,
-    },
-
-    {
-      heading: "Purpose of the Investigation Workflow",
-
-      notes: `
-The drone forensic workflow provides a structured methodology for:
-
-• evidence preservation
-• forensic acquisition
-• integrity maintenance
-• timeline reconstruction
-• legal admissibility
-
-The workflow ensures that every forensic action remains:
-• documented
-• repeatable
-• scientifically reliable
-`,
-    },
-
-    {
-      heading: "Importance of Workflow Standardization",
-
-      notes: `
-Standardized forensic workflows help investigators:
-
-• reduce evidence contamination
-• maintain chain of custody
-• ensure procedural consistency
-• support courtroom admissibility
-
-Professional workflows are critical in:
-• criminal investigations
-• counter-terrorism operations
-• accident reconstruction
-• cyber-forensic analysis
-`,
-    },
-
-  ],
+  short: "Android Studio, SDK, Emulator and Unit 1 revision.",
 },
-
 ];
+
+export const unit1Cards = allUnit1Cards;

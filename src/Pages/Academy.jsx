@@ -7,6 +7,103 @@ import { unit2Cards } from "../data/unit2";
 import { unit3Cards } from "../data/unit3";
 import { unit4Cards } from "../data/unit4";
 
+const formatInlineMarkdown = (text) => {
+  const parts = text.split(/(\*\*[^*]+\*\*|`[^`]+`)/g);
+
+  return parts.map((part, index) => {
+    if (part.startsWith("**") && part.endsWith("**")) {
+      return <strong key={index} className="font-bold text-cyan-100">{part.slice(2, -2)}</strong>;
+    }
+
+    if (part.startsWith("`") && part.endsWith("`")) {
+      return <code key={index} className="rounded bg-cyan-950/70 px-1.5 py-0.5 font-mono text-base text-cyan-200">{part.slice(1, -1)}</code>;
+    }
+
+    return part;
+  });
+};
+
+const MarkdownNotes = ({ content }) => {
+  if (!content) {
+    return <p className="text-gray-400">Notes for this topic will be added soon.</p>;
+  }
+
+  const lines = content.replace(/\r/g, "").split("\n");
+  const blocks = [];
+  let index = 0;
+
+  while (index < lines.length) {
+    const line = lines[index];
+
+    if (!line.trim() || line === "---") {
+      index += 1;
+      continue;
+    }
+
+    if (line.startsWith("```")) {
+      const codeLines = [];
+      index += 1;
+      while (index < lines.length && !lines[index].startsWith("```")) {
+        codeLines.push(lines[index]);
+        index += 1;
+      }
+      blocks.push(<pre key={index} className="overflow-x-auto rounded-2xl border border-cyan-500/20 bg-[#020817] p-5 text-base leading-relaxed text-cyan-100"><code>{codeLines.join("\n")}</code></pre>);
+      index += 1;
+      continue;
+    }
+
+    if (/^#{1,3}\s/.test(line)) {
+      const level = line.match(/^#+/)[0].length;
+      const headingClass = level === 1 ? "text-3xl" : level === 2 ? "text-2xl" : "text-xl";
+      blocks.push(<h3 key={index} className={`${headingClass} mt-8 font-bold text-cyan-300`}>{formatInlineMarkdown(line.replace(/^#{1,3}\s/, ""))}</h3>);
+      index += 1;
+      continue;
+    }
+
+    if (line.startsWith("|") && lines[index + 1]?.match(/^\|[\s|:-]+\|$/)) {
+      const headers = line.split("|").slice(1, -1).map((cell) => cell.trim());
+      index += 2;
+      const rows = [];
+      while (index < lines.length && lines[index].startsWith("|")) {
+        rows.push(lines[index].split("|").slice(1, -1).map((cell) => cell.trim()));
+        index += 1;
+      }
+      blocks.push(
+        <div key={index} className="overflow-x-auto rounded-2xl border border-cyan-500/20">
+          <table className="w-full min-w-[600px] border-collapse text-left text-lg">
+            <thead className="bg-cyan-500/15 text-cyan-100"><tr>{headers.map((header, cellIndex) => <th key={cellIndex} className="border-b border-cyan-500/20 px-4 py-3 font-bold">{formatInlineMarkdown(header)}</th>)}</tr></thead>
+            <tbody>{rows.map((row, rowIndex) => <tr key={rowIndex} className="border-b border-cyan-500/10 last:border-0">{row.map((cell, cellIndex) => <td key={cellIndex} className="px-4 py-3 align-top text-gray-200">{formatInlineMarkdown(cell)}</td>)}</tr>)}</tbody>
+          </table>
+        </div>
+      );
+      continue;
+    }
+
+    if (/^\s*[-*]\s/.test(line) || /^\s*\d+\.\s/.test(line)) {
+      const ordered = /^\s*\d+\.\s/.test(line);
+      const items = [];
+      while (index < lines.length && (ordered ? /^\s*\d+\.\s/.test(lines[index]) : /^\s*[-*]\s/.test(lines[index]))) {
+        items.push(lines[index].replace(ordered ? /^\s*\d+\.\s/ : /^\s*[-*]\s/, ""));
+        index += 1;
+      }
+      const ListTag = ordered ? "ol" : "ul";
+      blocks.push(<ListTag key={index} className={`${ordered ? "list-decimal" : "list-disc"} ml-7 space-y-2 text-gray-200`}>{items.map((item, itemIndex) => <li key={itemIndex}>{formatInlineMarkdown(item)}</li>)}</ListTag>);
+      continue;
+    }
+
+    const paragraph = [];
+    while (index < lines.length && lines[index].trim() && lines[index] !== "---" && !/^#{1,3}\s/.test(lines[index]) && !lines[index].startsWith("```") && !/^\s*[-*]\s/.test(lines[index]) && !/^\s*\d+\.\s/.test(lines[index]) && !lines[index].startsWith("|")) {
+      paragraph.push(lines[index]);
+      index += 1;
+    }
+    blocks.push(<p key={index} className="text-gray-200">{formatInlineMarkdown(paragraph.join(" "))}</p>);
+  }
+
+  return <div className="space-y-5">{blocks}</div>;
+};
+
+const siteUrl = (path) => `${import.meta.env.BASE_URL}${path.replace(/^\//, "")}`;
+
 const Academy = () => {
   const [activeSection, setActiveSection] = useState("unit1");
 
@@ -56,7 +153,7 @@ const Academy = () => {
   const renderDocLink = (doc) => (
     <a
       key={doc.url}
-      href={encodeURI(doc.url)}
+      href={encodeURI(siteUrl(doc.url))}
       target="_blank"
       rel="noreferrer noopener"
       className="block rounded-3xl border border-cyan-500/20 bg-white/5 p-5 transition hover:border-cyan-300 hover:bg-cyan-500/10"
@@ -168,6 +265,14 @@ const Academy = () => {
                             {topic.heading}
                           </h3>
 
+                          {topic.image && (
+                            <img
+                              src={siteUrl(topic.image)}
+                              alt={topic.imageAlt || `${topic.heading} diagram`}
+                              className="mt-8 w-full max-w-3xl rounded-2xl border border-cyan-500/20 bg-black object-contain"
+                            />
+                          )}
+
                         </div>
 
                         <div
@@ -194,10 +299,9 @@ const Academy = () => {
                     text-gray-300
                     text-xl
                     leading-loose
-                    whitespace-pre-line
                     "
                   >
-                    {card.content}
+                    <MarkdownNotes content={card.content} />
                   </div>
 
                 )}
@@ -322,22 +426,6 @@ const Academy = () => {
                 </div>
               ))}
             </div>
-          </div>
-        )}
-
-        {activeSection.includes("practical") && (
-          <div>
-
-            <h1 className="text-5xl font-bold text-cyan-400 mb-10">
-              UAV Forensic Practicals
-            </h1>
-
-            <iframe
-              src={droneforensics}
-              title="Drone Forensics"
-              className="w-full h-[900px] rounded-3xl border border-cyan-500/20"
-            />
-
           </div>
         )}
 
