@@ -11,10 +11,6 @@ const Home = ({ setEntered }) => {
       <Hero setEntered={setEntered} />
 
       <section className="px-6 pb-20">
-        <h1 className="text-red-500 text-6xl">
-  TEST
-</h1>
-
         <div className="max-w-7xl mx-auto">
 
           <h2 className="text-4xl font-bold text-white mb-10">

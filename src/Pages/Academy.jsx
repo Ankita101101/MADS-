@@ -1,5 +1,6 @@
 import { useState } from "react";
 
+import Navbar from "../Components/Navbar";
 import Sidebar from "../Components/Sidebar";
 
 import { unit1Cards } from "../data/unit1";
@@ -317,16 +318,18 @@ const Academy = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#020817] via-[#071129] to-[#020817] text-white flex">
+    <div className="min-h-screen bg-gradient-to-br from-[#020817] via-[#071129] to-[#020817] text-white flex flex-col">
 
-      <Sidebar
-        activeSection={activeSection}
-        setActiveSection={setActiveSection}
-      />
+      <Navbar />
 
-      <div className="flex-1 overflow-y-auto p-10">
+      <div className="flex flex-1">
+        <Sidebar
+          activeSection={activeSection}
+          setActiveSection={setActiveSection}
+        />
 
-        {activeSection === "unit1" && (
+        <div className="flex-1 overflow-y-auto p-10">
+          {activeSection === "unit1" && (
           <div>
 
             <h1 className="text-5xl font-bold text-cyan-400 mb-4">
@@ -345,7 +348,7 @@ const Academy = () => {
           </div>
         )}
 
-        {activeSection === "unit2" && (
+          {activeSection === "unit2" && (
           <div>
 
             <h1 className="text-5xl font-bold text-cyan-400 mb-4">
@@ -364,7 +367,7 @@ const Academy = () => {
 
           </div>
         )}
-        {activeSection === "unit3" && (
+          {activeSection === "unit3" && (
   <div>
 
     <h1 className="text-5xl font-bold text-cyan-400 mb-4">
@@ -383,7 +386,7 @@ const Academy = () => {
 
   </div>
 )}
-        {activeSection === "unit4" && (
+          {activeSection === "unit4" && (
   <div>
 
     <h1 className="text-5xl font-bold text-cyan-400 mb-4">
@@ -404,7 +407,7 @@ const Academy = () => {
 )}
         
 
-        {activeSection === "allpdfs" && (
+          {activeSection === "allpdfs" && (
           <div>
             <h1 className="text-5xl font-bold text-cyan-400 mb-10">
               All PDFs, DOCs and PPTs
@@ -427,8 +430,19 @@ const Academy = () => {
               ))}
             </div>
           </div>
-        )}
+          )}
 
+          {activeSection.startsWith("practical") && (
+            <div>
+              <h1 className="text-5xl font-bold text-cyan-400 mb-4">
+                Practical {activeSection.replace("practical", "")}
+              </h1>
+              <p className="text-gray-400 text-lg">
+                Instructions and materials for this practical will be added soon.
+              </p>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );
